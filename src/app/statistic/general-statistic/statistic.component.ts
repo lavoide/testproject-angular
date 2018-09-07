@@ -3,7 +3,7 @@ import { StatisticService } from '../../shared/services/statistic.service';
 import {IMonthShort} from '../../shared/models/statistic.model';
 import {Observable} from 'rxjs';
 import * as fromStatistics from '../reducers';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {GetStatisticShort} from '../actions/statistic-action';
 
 @Component({
@@ -14,9 +14,8 @@ import {GetStatisticShort} from '../actions/statistic-action';
 export class StatisticComponent implements OnInit {
   public statistic: Observable <IMonthShort[]>;
   // public statistic: IMonthShort[];
-  constructor(private statisticService: StatisticService,
-              private store: Store<fromStatistics.State>) {
-    this.statistic = this.statisticService.getStatisticShort();
+  constructor(private store: Store<fromStatistics.State>) {
+    this.statistic = store.pipe(select(fromStatistics.getStatisticsSelector));
   }
   ngOnInit() {
     this.store.dispatch(new GetStatisticShort());
