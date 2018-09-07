@@ -13,5 +13,4 @@ export class PlanningGuard implements CanActivate, CanActivateChild {
     console.log('checking child route access');
     return prompt('Enter password') === '1111';
   }
-
 }

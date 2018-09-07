@@ -1,4 +1,7 @@
-import {ComponentFactoryResolver, ComponentRef, Directive, ElementRef, HostListener, Input, ViewContainerRef} from '@angular/core';
+import {
+  ComponentFactoryResolver, ComponentRef, Directive, ElementRef, HostListener, Injector, Input, Renderer2,
+  ViewContainerRef
+} from '@angular/core';
 import {TooltipInterface, TooltipPosition} from './tooltip.interface';
 import {MoneyTooltipComponent} from './tooltip.component';
 
@@ -29,7 +32,8 @@ export class TooltipDirective{
   constructor(
     private ref: ElementRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private renderer: Renderer2
   ){}
   @HostListener('mouseover',['$event']) onMouseOver(e) {
     if(!this.isClear || this.showOnClick){
@@ -44,10 +48,27 @@ export class TooltipDirective{
     this.isClear = true;
   }
   initTooltip(){
+    const injector = Injector.create({
+      providers: [
+        {
+          provide: 'tooltipConfig',
+          useValue: {
+            host: this.ref.nativeElement
+          }
+        }
+      ]
+    });
     let componentFactory: any;
     componentFactory = this.componentFactoryResolver.resolveComponentFactory(MoneyTooltipComponent);
-    this.componentRef = this.viewContainerRef.createComponent(componentFactory, 0);
+    this.componentRef = this.viewContainerRef.createComponent(componentFactory, 0, injector, this.generateNgContent());
+    this.componentRef.instance.template = this.template;
     this.ref.nativeElement.appendChild(this.componentRef.location.nativeElement);
     this.isClear = false;
+  }
+  private generateNgContent() {
+    if (typeof this.template === 'string') {
+      const element = this.renderer.createText(this.template);
+      return [[element]];
+    }
   }
 }

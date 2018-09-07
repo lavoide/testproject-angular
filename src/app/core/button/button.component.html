@@ -1,4 +1,4 @@
-<div class="button" (click)="clickHandler()" >
+<div class="button" (click)="clickHandler()" money-tooltip [template]="data.value">
   <a routerLink={{data.url}} routerLinkActive="active">
     {{data.value}}
   </a>
