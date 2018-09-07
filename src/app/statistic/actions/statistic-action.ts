@@ -3,7 +3,7 @@ import {Action} from '@ngrx/store';
 
 export enum StatisticActionTypes {
   GetStatisticShort = '[Statistic] Get Statistic requested',
-  GetStatisticShortSuccess = '[TravelTypes] Get Statistic suceeded',
+  GetStatisticShortSuccess = '[Statistic] Get Statistic suceeded',
 }
 
 export class GetStatisticShort implements Action {
