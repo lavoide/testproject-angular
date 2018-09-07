@@ -1,9 +1,9 @@
-import {IMonthShort} from "../../shared/models/statistic.model";
+import {IMonthShort} from '../../shared/models/statistic.model';
 import {Action} from '@ngrx/store';
 
 export enum StatisticActionTypes {
-  GetStatisticShort = '[TravelTypes] Load TravelTypes requested',
-  GetStatisticShortSuccess = '[TravelTypes] Load TravelTypes succeeded',
+  GetStatisticShort = '[Statistic] Get Statistic requested',
+  GetStatisticShortSuccess = '[TravelTypes] Get Statistic suceeded',
 }
 
 export class GetStatisticShort implements Action {

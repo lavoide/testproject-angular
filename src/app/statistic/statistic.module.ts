@@ -5,9 +5,9 @@ import { StatisticService } from '../shared/services/statistic.service';
 import {SharedModule} from '../shared/module';
 import {StatisticRouterModule} from './statistic-routing.module';
 import { StoreModule } from '@ngrx/store';
-import {reducers} from "./reducers";
-import {EffectsModule} from '@ngrx/effects'
-import {StatisticsEffects} from "./effects/statistic-effect";
+import {reducers} from './reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {StatisticsEffects} from './effects/statistic-effect';
 
 const Components = [StatisticComponent];
 const Exports = [StatisticComponent];
